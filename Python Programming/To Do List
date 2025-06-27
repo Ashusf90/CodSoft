@@ -42,3 +42,19 @@ def delete_task():
         update_task_list()
     except IndexError:
         messagebox.showwarning("Warning", "No task selected")
+
+
+def mark_done():
+    try:
+        selected = task_listbox.curselection()[0]
+        tasks[selected]["done"] = not tasks[selected]["done"]
+        update_task_list()
+        save_tasks()
+    except IndexError:
+        messagebox.showwarning("Warning", "No task selected")
+
+def sort_tasks():
+    tasks.sort(key=lambda x: datetime.strptime(x["due"], DATE_FORMAT))
+    update_task_list()
+
+     
