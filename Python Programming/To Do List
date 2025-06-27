@@ -24,3 +24,21 @@ def save_tasks():
           for task in tasks:
                line = f'{task["task"]}||{task["due"]}||{"1" if task["done"] else "0"}\m'
                file.write(line)
+
+def add_task():
+    task = task_entry.get()
+    if task:
+        due_input = simpledialog.askstring("Due Date", "Enter due date (YYYY-MM-DD HH:MM):)
+        tasks.append({"task": task, "due": due_input, "done": False})
+        update_task_list()
+        task_entry.delete(0, tk.END)
+    excpet:
+        messagebox.showerror("Invalid", "Please enter due date in YYYY-MM-DD HH:MM format")
+
+def delete_task():
+    try:
+        selected = task_listbox.curselection() [0]
+        task.pop(selected)
+        update_task_list()
+    except IndexError:
+        messagebox.showwarning("Warning", "No task selected")
