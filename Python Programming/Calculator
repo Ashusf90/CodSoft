@@ -79,3 +79,27 @@ def create_button(self, parent, char):
 
     def on_return_press(self, event):
         self.evaluate_expression()
+def evaluate_expression(self):
+        try:
+            expr = self.expression.replace('sqrt', 'math.sqrt')\
+                                  .replace('^', '**')\
+                                  .replace('log', 'math.log10')\
+                                  .replace('sin', 'math.sin(math.radians')\
+                                  .replace('cos', 'math.cos(math.radians')\
+                                  .replace('tan', 'math.tan(math.radians')
+
+            open_count = expr.count('(')
+            close_count = expr.count(')')
+            expr += ')' * (open_count - close_count)
+
+            result = eval(expr)
+            self.input_text.set(result)
+            self.expression = str(result)
+        except:
+            self.input_text.set("Error")
+            self.expression = ""
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = FancyCalculatorApp(root)
+    root.mainloop()
