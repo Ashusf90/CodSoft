@@ -60,3 +60,22 @@ def create_widgets(self):
         exit_btn = ttk.Button(self.root, text="🚪 Exit", command=self.root.quit)
         exit_btn.pack(pady=20)
 
+def create_button(self, parent, char):
+        btn = ttk.Button(parent, text=char, command=lambda ch=char: self.on_button_click(ch))
+        btn.pack(side='left', padx=5, ipadx=8)
+
+    def on_button_click(self, char):
+        if char == 'C':
+            self.expression = ""
+            self.input_text.set("")
+        elif char == '=':
+            self.evaluate_expression()
+        else:
+            if char in ['sin', 'cos', 'tan']:
+                self.expression += f"{char}("
+            else:
+                self.expression += str(char)
+            self.input_text.set(self.expression)
+
+    def on_return_press(self, event):
+        self.evaluate_expression()
